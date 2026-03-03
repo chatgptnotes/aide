@@ -26,6 +26,23 @@ const Login: React.FC = () => {
             <p className="text-gray-600 mt-2">Sign in to your Hospital Neural Network</p>
           </div>
 
+          
+            {/* Demo Credentials Card */}
+            <button
+              type="button"
+              onClick={() => { setEmail('cmd@hopehospitaal.com'); setPassword('Chindwada@1'); }}
+              className="w-full mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl hover:bg-blue-100 transition-all text-left cursor-pointer"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold text-[#0F4C75] uppercase tracking-wider">Demo Access</span>
+                <span className="text-[10px] bg-[#0F4C75] text-white px-2 py-0.5 rounded-full">Click to fill</span>
+              </div>
+              <div className="space-y-1">
+                <div className="text-sm text-gray-600"><span className="text-gray-400 w-16 inline-block">Email:</span> cmd@hopehospitaal.com</div>
+                <div className="text-sm text-gray-600"><span className="text-gray-400 w-16 inline-block">Pass:</span> Chindwada@1</div>
+              </div>
+            </button>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
