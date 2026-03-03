@@ -236,6 +236,44 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Predictive Occupancy - Next 7 Days */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">Predictive Occupancy - Next 7 Days</h3>
+          <button onClick={() => {
+            document.documentElement.requestFullscreen?.();
+            document.body.classList.toggle('command-center-mode');
+          }} className="px-3 py-1.5 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-800 flex items-center space-x-2">
+            <Activity className="w-4 h-4" />
+            <span>Command Center Mode</span>
+          </button>
+        </div>
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={[
+            { day: 'Today', predicted: 56, actual: 56 },
+            { day: 'Tue', predicted: 58, actual: undefined },
+            { day: 'Wed', predicted: 62, actual: undefined },
+            { day: 'Thu', predicted: 60, actual: undefined },
+            { day: 'Fri', predicted: 55, actual: undefined },
+            { day: 'Sat', predicted: 48, actual: undefined },
+            { day: 'Sun', predicted: 45, actual: undefined },
+          ]}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="day" />
+            <YAxis domain={[0, 75]} />
+            <Tooltip />
+            <Line type="monotone" dataKey="predicted" stroke="#3282B8" strokeWidth={2} strokeDasharray="5 5" name="Predicted" />
+            <Line type="monotone" dataKey="actual" stroke="#0F4C75" strokeWidth={2} name="Actual" />
+          </LineChart>
+        </ResponsiveContainer>
+        <div className="mt-3 flex items-center space-x-4 text-sm text-gray-500">
+          <span className="flex items-center space-x-1"><span className="w-3 h-0.5 bg-blue-600 inline-block"></span><span>Actual</span></span>
+          <span className="flex items-center space-x-1"><span className="w-3 h-0.5 bg-blue-400 inline-block" style={{borderBottom: '2px dashed'}}></span><span>Predicted</span></span>
+          <span>Peak expected: Wednesday (62/75 beds, 83%)</span>
+        </div>
+      </div>
+
     </div>
   );
 };

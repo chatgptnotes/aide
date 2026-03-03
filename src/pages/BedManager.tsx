@@ -67,6 +67,49 @@ const BedManager: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Discharge Planning */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Discharge Planning</h3>
+        <div className="space-y-3">
+          {[
+            { patient: 'Rajesh Gupta', bed: 'ICU-01', ward: 'ICU', expectedDate: '2026-03-04', los: 3, readiness: 75, checklist: { vitals: true, meds: true, followup: false, billing: false } },
+            { patient: 'Geeta Devi', bed: 'GF-01', ward: 'General Female', expectedDate: '2026-03-03', los: 2, readiness: 100, checklist: { vitals: true, meds: true, followup: true, billing: true } },
+          ].map((d, i) => (
+            <div key={i} className="border rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <span className="font-medium">{d.patient}</span>
+                  <span className="text-gray-500 text-sm ml-2">Bed: {d.bed} ({d.ward})</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm text-gray-500">Expected: {d.expectedDate}</span>
+                  <span className="ml-2 text-xs text-gray-400">LOS: {d.los}d</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-sm text-gray-600">Readiness:</span>
+                <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-xs">
+                  <div className={`h-2 rounded-full ${d.readiness === 100 ? 'bg-green-500' : 'bg-amber-500'}`} style={{ width: `${d.readiness}%` }} />
+                </div>
+                <span className="text-sm font-medium">{d.readiness}%</span>
+              </div>
+              <div className="flex space-x-4 text-xs">
+                {Object.entries(d.checklist).map(([key, done]) => (
+                  <span key={key} className={`flex items-center space-x-1 ${done ? 'text-green-600' : 'text-gray-400'}`}>
+                    <span>{done ? '\u2713' : '\u2717'}</span>
+                    <span className="capitalize">{key}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-700">Avg Bed Turnover Time: <span className="font-bold">4.2 hours</span> (Target: 3 hours)</p>
+        </div>
+      </div>
+
     </div>
   );
 };

@@ -100,6 +100,62 @@ const Inventory: React.FC = () => {
           </table>
         </div>
       </div>
+
+
+      {/* Drug Interaction Checker */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Drug Interaction Alerts</h3>
+        <div className="space-y-3 mb-4">
+          {[
+            { drug1: 'Warfarin', drug2: 'Aspirin', severity: 'high', effect: 'Increased bleeding risk' },
+            { drug1: 'Metformin', drug2: 'Contrast Dye', severity: 'high', effect: 'Lactic acidosis risk' },
+            { drug1: 'Ciprofloxacin', drug2: 'Antacids', severity: 'moderate', effect: 'Reduced absorption' },
+          ].map((d, i) => (
+            <div key={i} className={`p-3 rounded-lg border ${d.severity === 'high' ? 'border-red-200 bg-red-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="flex items-center justify-between">
+                <span className="font-medium text-sm">{d.drug1} + {d.drug2}</span>
+                <span className={`px-2 py-0.5 rounded text-xs font-medium ${d.severity === 'high' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'}`}>{d.severity}</span>
+              </div>
+              <p className="text-sm text-gray-600 mt-1">{d.effect}</p>
+            </div>
+          ))}
+        </div>
+        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-700">Expiring within 30 days: <span className="font-bold">3 items</span> (Amoxicillin 250mg, X-Ray Films, Saline 500ml)</p>
+        </div>
+      </div>
+
+      {/* Equipment Maintenance */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Equipment Maintenance</h3>
+        <div className="space-y-3">
+          {[
+            { equipment: 'C-Arm Fluoroscopy', lastPM: '2026-02-15', nextPM: '2026-03-15', status: 'maintenance', amcExpiry: '2026-12-31', amcVendor: 'Siemens' },
+            { equipment: 'Ventilator #3', lastPM: '2026-01-20', nextPM: '2026-04-20', status: 'operational', amcExpiry: '2026-06-30', amcVendor: 'Draeger' },
+            { equipment: 'X-Ray Machine', lastPM: '2026-02-01', nextPM: '2026-05-01', status: 'operational', amcExpiry: '2027-03-31', amcVendor: 'GE Healthcare' },
+            { equipment: 'Autoclave #1', lastPM: '2026-02-28', nextPM: '2026-03-28', status: 'operational', amcExpiry: '2026-09-30', amcVendor: 'Tuttnauer' },
+          ].map((e, i) => (
+            <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+              <div>
+                <p className="font-medium text-sm">{e.equipment}</p>
+                <p className="text-xs text-gray-500">AMC: {e.amcVendor} (expires {e.amcExpiry})</p>
+              </div>
+              <div className="flex items-center space-x-4 text-sm">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Last PM</p>
+                  <p>{e.lastPM}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Next PM</p>
+                  <p className="font-medium">{e.nextPM}</p>
+                </div>
+                <span className={`px-2 py-1 rounded-full text-xs ${e.status === 'operational' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>{e.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 };

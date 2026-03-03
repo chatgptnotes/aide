@@ -43,6 +43,47 @@ const StaffSchedule: React.FC = () => {
           </table>
         </div>
       </div>
+
+
+      {/* Staff Performance Metrics */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Staff Performance</h3>
+        <div className="space-y-3">
+          {[
+            { name: 'Dr. BK Murali', role: 'Doctor', attendance: 98, productivity: 95, satisfaction: 4.8 },
+            { name: 'Dr. Rajesh Sharma', role: 'Doctor', attendance: 92, productivity: 88, satisfaction: 4.5 },
+            { name: 'Sister Meera Joshi', role: 'Nurse', attendance: 96, productivity: 92, satisfaction: 4.7 },
+            { name: 'Ravi Technician', role: 'Technician', attendance: 94, productivity: 90, satisfaction: 4.3 },
+            { name: 'Dr. Priya Patel', role: 'Doctor', attendance: 90, productivity: 85, satisfaction: 4.6 },
+            { name: 'Sister Sunita Rao', role: 'Nurse', attendance: 97, productivity: 93, satisfaction: 4.4 },
+          ].map((s, i) => (
+            <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center text-xs font-bold text-primary-700">{s.name.charAt(0)}</div>
+                <div>
+                  <p className="font-medium text-sm">{s.name}</p>
+                  <p className="text-xs text-gray-500">{s.role}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-6 text-sm">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Attendance</p>
+                  <p className={`font-bold ${s.attendance >= 95 ? 'text-green-600' : 'text-amber-600'}`}>{s.attendance}%</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Productivity</p>
+                  <p className={`font-bold ${s.productivity >= 90 ? 'text-green-600' : 'text-amber-600'}`}>{s.productivity}%</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">Satisfaction</p>
+                  <p className="font-bold text-primary-600">{s.satisfaction}/5</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 };

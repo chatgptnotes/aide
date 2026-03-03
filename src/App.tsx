@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Components
@@ -17,6 +16,15 @@ import Inventory from './pages/Inventory';
 import AIAgents from './pages/AIAgents';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
+import OTSchedule from './pages/OTSchedule';
+import LabDashboard from './pages/LabDashboard';
+import InfectionControl from './pages/InfectionControl';
+import EDBoard from './pages/EDBoard';
+import NABHTracker from './pages/NABHTracker';
+import AmbulanceTracker from './pages/AmbulanceTracker';
+import BloodBank from './pages/BloodBank';
+import SOPLibrary from './pages/SOPLibrary';
+import ReferralNetwork from './pages/ReferralNetwork';
 
 function App() {
   return (
@@ -42,6 +50,15 @@ function App() {
             <Route path="/agents" element={<AIAgents />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/ot-schedule" element={<OTSchedule />} />
+            <Route path="/lab" element={<LabDashboard />} />
+            <Route path="/infection-control" element={<InfectionControl />} />
+            <Route path="/ed-board" element={<EDBoard />} />
+            <Route path="/nabh" element={<NABHTracker />} />
+            <Route path="/ambulance" element={<AmbulanceTracker />} />
+            <Route path="/blood-bank" element={<BloodBank />} />
+            <Route path="/sop-library" element={<SOPLibrary />} />
+            <Route path="/referrals" element={<ReferralNetwork />} />
           </Route>
 
           {/* Redirect unknown routes */}
