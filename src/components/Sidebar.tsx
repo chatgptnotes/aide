@@ -1,27 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  Users,
-  Bed,
-  Calendar,
-  TrendingUp,
-  Package,
-  Bot,
-  BarChart3,
-  Settings,
-  Activity,
-  Scissors,
-  FlaskConical,
-  ShieldAlert,
-  Siren,
-  ClipboardCheck,
-  Truck,
-  Droplets,
-  FileText,
-  UserPlus,
-  ChevronDown,
-  ChevronRight,
+  LayoutDashboard, Users, Bed, Calendar, TrendingUp, Package,
+  Bot, BarChart3, Settings, Activity, Scissors, FlaskConical,
+  ShieldAlert, Siren, ClipboardCheck, Truck, Droplets, FileText,
+  UserPlus, ChevronDown, ChevronRight, X,
 } from 'lucide-react';
 
 const navSections = [
@@ -65,7 +48,12 @@ const navSections = [
   },
 ];
 
-const Sidebar: React.FC = () => {
+interface Props {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}
+
+const Sidebar: React.FC<Props> = ({ mobileOpen, onClose }) => {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
@@ -73,19 +61,26 @@ const Sidebar: React.FC = () => {
     setCollapsed(prev => ({ ...prev, [title]: !prev[title] }));
   };
 
-  return (
-    <aside className="bg-white border-r border-gray-200 w-64 flex-shrink-0 overflow-y-auto">
+  const sidebarContent = (
+    <>
       <div className="p-6">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
-            <Activity className="w-6 h-6 text-white" />
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center">
+              <Activity className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-primary-500">Aide</h1>
+              <p className="text-xs text-gray-500">Neural Network</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-primary-500">Aide</h1>
-            <p className="text-xs text-gray-500">Neural Network</p>
-          </div>
+          {onClose && (
+            <button onClick={onClose} className="md:hidden p-1.5 hover:bg-gray-100 rounded-lg">
+              <X className="w-5 h-5 text-gray-400" />
+            </button>
+          )}
         </div>
-        
+
         <nav className="space-y-4">
           {navSections.map((section) => (
             <div key={section.title}>
@@ -104,6 +99,7 @@ const Sidebar: React.FC = () => {
                       <Link
                         key={item.path}
                         to={item.path}
+                        onClick={onClose}
                         className={`flex items-center space-x-3 px-4 py-2.5 rounded-xl transition-colors ${
                           isActive
                             ? 'bg-primary-500 text-white'
@@ -121,7 +117,7 @@ const Sidebar: React.FC = () => {
           ))}
         </nav>
       </div>
-      
+
       <div className="p-6 pt-2">
         <div className="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl p-4 text-white">
           <div className="flex items-center space-x-2 mb-2">
@@ -129,12 +125,25 @@ const Sidebar: React.FC = () => {
             <span className="font-medium text-sm">Neural Status</span>
           </div>
           <div className="text-xs opacity-90">
-            <p>4 Agents Active</p>
+            <p className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />4 Agents Active</p>
             <p>System Health: 98%</p>
           </div>
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex md:flex-col bg-white border-r border-gray-200 w-64 flex-shrink-0 overflow-y-auto">
+        {sidebarContent}
+      </aside>
+      {/* Mobile sidebar */}
+      <aside className={`fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-gray-200 overflow-y-auto transform transition-transform duration-200 md:hidden ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        {sidebarContent}
+      </aside>
+    </>
   );
 };
 

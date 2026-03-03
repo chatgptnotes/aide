@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Components
 import Layout from './components/Layout';
@@ -28,44 +29,43 @@ import ReferralNetwork from './pages/ReferralNetwork';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          
-          {/* Protected routes with layout */}
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/patient-flow" element={<PatientFlow />} />
-            <Route path="/beds" element={<BedManager />} />
-            <Route path="/staff" element={<StaffSchedule />} />
-            <Route path="/revenue" element={<Revenue />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/agents" element={<AIAgents />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/ot-schedule" element={<OTSchedule />} />
-            <Route path="/lab" element={<LabDashboard />} />
-            <Route path="/infection-control" element={<InfectionControl />} />
-            <Route path="/ed-board" element={<EDBoard />} />
-            <Route path="/nabh" element={<NABHTracker />} />
-            <Route path="/ambulance" element={<AmbulanceTracker />} />
-            <Route path="/blood-bank" element={<BloodBank />} />
-            <Route path="/sop-library" element={<SOPLibrary />} />
-            <Route path="/referrals" element={<ReferralNetwork />} />
-          </Route>
+    <ErrorBoundary fallbackTitle="Application Error">
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
 
-          {/* Redirect unknown routes */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
-    </Router>
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }>
+              <Route path="/dashboard" element={<ErrorBoundary fallbackTitle="Dashboard Error"><Dashboard /></ErrorBoundary>} />
+              <Route path="/patient-flow" element={<ErrorBoundary><PatientFlow /></ErrorBoundary>} />
+              <Route path="/beds" element={<ErrorBoundary><BedManager /></ErrorBoundary>} />
+              <Route path="/staff" element={<ErrorBoundary><StaffSchedule /></ErrorBoundary>} />
+              <Route path="/revenue" element={<ErrorBoundary><Revenue /></ErrorBoundary>} />
+              <Route path="/inventory" element={<ErrorBoundary><Inventory /></ErrorBoundary>} />
+              <Route path="/agents" element={<ErrorBoundary><AIAgents /></ErrorBoundary>} />
+              <Route path="/analytics" element={<ErrorBoundary><Analytics /></ErrorBoundary>} />
+              <Route path="/settings" element={<ErrorBoundary><Settings /></ErrorBoundary>} />
+              <Route path="/ot-schedule" element={<ErrorBoundary><OTSchedule /></ErrorBoundary>} />
+              <Route path="/lab" element={<ErrorBoundary><LabDashboard /></ErrorBoundary>} />
+              <Route path="/infection-control" element={<ErrorBoundary><InfectionControl /></ErrorBoundary>} />
+              <Route path="/ed-board" element={<ErrorBoundary><EDBoard /></ErrorBoundary>} />
+              <Route path="/nabh" element={<ErrorBoundary><NABHTracker /></ErrorBoundary>} />
+              <Route path="/ambulance" element={<ErrorBoundary><AmbulanceTracker /></ErrorBoundary>} />
+              <Route path="/blood-bank" element={<ErrorBoundary><BloodBank /></ErrorBoundary>} />
+              <Route path="/sop-library" element={<ErrorBoundary><SOPLibrary /></ErrorBoundary>} />
+              <Route path="/referrals" element={<ErrorBoundary><ReferralNetwork /></ErrorBoundary>} />
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
